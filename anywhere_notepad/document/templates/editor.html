@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>ANYWHERE_NOTEPAD_V_1</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    </head>
+
+    <body>
+        <nav class="navbar is-dark">
+            <div class="navbar-brand">
+                <a href="{% url 'editor' %}" class="navbar-item">ANYWHERE_NOTES_V_1</a>
+            </div>
+
+            <div class="navbar-menu">
+                <div class="navbar-end">
+                    <a href="{% url 'editor' %}?docid=0" class="navbar-item">NOWY_PAPIUR</a>
+                </div>
+            </div>
+        </nav>
+
+        <section class="section">
+            <div class="columns">
+                <div class="column is-2">
+                    <aside class="menu">
+                        <p class="menu-label">DOKUMYNTY</p>
+
+                        <ul class="menu-list">
+                            {% for doc in documents %}
+                                <li>
+                                    <a href="{% url 'editor' %}?docid={{ doc.id }}">{{ doc.title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                </div>
+
+                <div class="column is-10">
+                    <form method="post" action="{% url 'editor' %}">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="docid" value="{{ docid }}">
+
+                        <div class="field">
+                            <label class="label">NAZWA_PAPIURA</label>
+
+                            <div class="control">
+                                <input type="text" class="input" name="title" placeholder="NAZWA_PAPIURA"{% if document %} value="{{ document.title }}"{% endif %}>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">ZAWARTOSC_PAPIURA</label>
+
+                            <div class="control">
+                                <textarea class="textarea" name="content" placeholder="ZAWARTOSC_PAPIURA">{% if document %}{{ document.content }}{% endif %}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <button class="button is-primary">ZAPISZ_PAPIUR</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
