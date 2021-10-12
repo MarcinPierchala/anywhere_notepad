@@ -43,7 +43,17 @@
                         <input type="hidden" name="docid" value="{{ docid }}">
 
                         <div class="field">
-                            <label class="label">NAZWA_PAPIURA</label>
+                            <label class="label">
+                                NAZWA_PAPIURA
+                            
+                                {% if document %}
+                                    <span class="has-text-grey-light">
+                                        NAPISOŁEŚ_DNIA: {{ document.created_at|date:"m/d Y"}} /
+                                        ZMIYNIŁEŚ_DNIA: {{ document.modified_at|date:"m/d Y"}}
+                                    </span>
+
+                                {% endif %}
+                            </label>
 
                             <div class="control">
                                 <input type="text" class="input" name="title" placeholder="NAZWA_PAPIURA"{% if document %} value="{{ document.title }}"{% endif %}>
@@ -58,10 +68,15 @@
                             </div>
                         </div>
 
-                        <div class="field">
+                        <div class="field is-grouped">
                             <div class="control">
                                 <button class="button is-primary">ZAPISZ_PAPIUR</button>
                             </div>
+                            {% if document %}
+                                <div class="control">
+                                    <a href="{% url 'delete_document' document.id %}" class="button is-danger">WYCIEP_PAPIUR</a>
+                                </div>
+                            {% endif %}
                         </div>
                     </form>
                 </div>
