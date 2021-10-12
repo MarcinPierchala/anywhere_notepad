@@ -48,8 +48,8 @@
                             
                                 {% if document %}
                                     <span class="has-text-grey-light">
-                                        NAPISOŁEŚ_DNIA: {{ document.created_at|date:"m/d Y"}} /
-                                        ZMIYNIŁEŚ_DNIA: {{ document.modified_at|date:"m/d Y"}}
+                                        NAPISOŁEŚ_DNIA: {{ document.created_at|date:"d m Y"}} /
+                                        ZMIYNIŁEŚ_DNIA: {{ document.modified_at|date:"d m Y"}}
                                     </span>
 
                                 {% endif %}
